@@ -29,7 +29,7 @@ public class FutureProximityAdjuster implements TimePointAdjuster {
             }
         }
 
-        return timePoints[begin];
+        return begin < timePoints.length ? timePoints[begin].convert(timePoint.getTimeUnit()) : null;
 
     }
 }

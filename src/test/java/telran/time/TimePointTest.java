@@ -8,7 +8,7 @@ import telran.time.adjusters.FutureProximityAdjuster;
 import telran.time.adjusters.PlusTimePointAdjuster;
 
 public class TimePointTest {
-    TimePoint point60Seconds = new TimePoint(60, TimeUnit.SECOND);
+    TimePoint point3600Seconds = new TimePoint(3600, TimeUnit.SECOND);
     TimePoint point7200Seconds = new TimePoint(7200, TimeUnit.SECOND);
     TimePoint point60Minutes = new TimePoint(60, TimeUnit.MINUTE);
     TimePoint point120Minutes = new TimePoint(120, TimeUnit.MINUTE);
@@ -92,7 +92,7 @@ public class TimePointTest {
         // Future time test
         TimePoint[] points = {
             point3HoursNegative,
-            point60Seconds,
+            point3600Seconds,
             point120Minutes,
             point2Hours,
             point3Hours,
@@ -100,11 +100,11 @@ public class TimePointTest {
 
         FutureProximityAdjuster futureProximity = new FutureProximityAdjuster(points);
 
-        assertEquals(point3HoursNegative, point5HoursNegative.with(futureProximity));
-        assertEquals(point60Seconds, point3HoursNegative.with(futureProximity));
-        assertEquals(point120Minutes, point60Seconds.with(futureProximity));
-        assertEquals(point120Minutes, point60Minutes.with(futureProximity));
-        assertEquals(point3Hours, point120Minutes.with(futureProximity));
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> point3Hours.with(futureProximity));
+        assertTrue(point5HoursNegative.with(futureProximity).equals(point3HoursNegative));
+        assertTrue(point3HoursNegative.with(futureProximity).equals(point3600Seconds));
+        assertTrue(point3600Seconds.with(futureProximity).equals(point120Minutes));
+        assertTrue(point60Minutes.with(futureProximity).equals(point120Minutes));
+        assertTrue(point120Minutes.with(futureProximity).equals(point3Hours));
+        assertNull(point3Hours.with(futureProximity));
     }
 }
