@@ -24,7 +24,7 @@ public class FutureProximityAdjuster implements TimePointAdjuster {
 
             if (cmp <= 0) {
                 begin = mid + 1;
-            } else if (cmp > 0) {
+            } else {
                 end = mid - 1;
             }
         }
